@@ -22,9 +22,14 @@ int main() {
     Graph graph;
     graph.createGraph(matrix, labels);
     graph.printGraph();
+    cout << endl; 
 
-    DFS(graph, "A"); //depth first search, using queue
-    BFS(graph, "A"); //breadth first search, using stack
+    //run DFS and BFS
+    DFS(graph, "A"); 
+    DFS(graph, "E"); //test if don't using resetVisited()
+    graph.resetVisited(); 
+    BFS(graph, "A");
+    BFS(graph, "H"); 
 
     return 0;
 }
