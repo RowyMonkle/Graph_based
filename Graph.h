@@ -1,30 +1,12 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <vector>
 #include<queue>
 
 using namespace std;
 
-class Node { //Graph Node
-public:
-    string label;
-    Edge* Head;
-    Node* next;
-    Node(string l) {
-        label = l;
-        Head = nullptr;
-        next = nullptr;
-    }
-
-    ~Node() {
-        Edge* current = Head;
-        while (current != nullptr) {
-        Edge* temp = current;
-        current = current->next; 
-        delete temp;
-        }
-    }
-};
+class Node; //for Edge() access Node()
 
 class Edge {
 public:
@@ -32,13 +14,40 @@ public:
     Node* to; // destination node
     int weight; //distance between nodes (finding shortest path)
     Edge* next;
+    Edge* temp;
 
     Edge(Node* f, Node* t, int w) { //constructor
         from = f;
         to = t;
-        weight = w; 
+        weight = w;
+        next = nullptr;
     }
 };
+
+class Node { //Graph Node
+public:
+    string label;
+    Edge* Head;
+    Node* next;
+    bool visited; //for BFS & DFS
+    Node(string l) {
+        label = l;
+        Head = nullptr;
+        next = nullptr;
+        visited = false; //before traversal (using BFS & DFS)
+    }
+
+    ~Node() {
+        Edge* current = Head;
+        while (current != nullptr) {
+            Edge* temp = current;
+            current = current->next; 
+            delete temp;
+        }
+    }
+};
+
+
 
 class Graph {
 public:
@@ -57,6 +66,7 @@ public:
     }
 
     //create graph using adjacency matrix and labels
+    //I stored in vector (Main())
     void createGraph(vector<vector<int>> matrix, vector<string> labels) {
         if (matrix.size() != labels.size()) {
             cout << "Error: Matrix size and labels size do not match." << endl;
@@ -102,13 +112,21 @@ public:
         return nullptr; // if not found
     }
 
+    void resetVisited() { //reset visited status for future calls
+        Node* temp = Head;
+        while (temp != nullptr) {
+            temp->visited = false;
+            temp = temp->next;
+        }
+    }
+
     void printGraph() { //print the graph
         Node* rowNode = Head;
         while (rowNode != nullptr) {
             cout << rowNode->label << " | ";
             Edge* edge = rowNode->Head;
             while (edge != nullptr) {
-                cout << "(" << edge->to->label << ", " << edge->weight << ") ";
+                cout << "(" << edge->to->label << ", " << edge->weight << ") "; // expected format: (destination, weight)
                 edge = edge->next;
             }
             cout << endl;
@@ -124,16 +142,15 @@ void DFS(Graph& graph, string Label) { //depth first search, using stack
         cout << "Start node not found!" << endl;
         return;
     }
-    
-    /*
-    //check visited nodes
-    */
 
     queue<Node*> q;
+    graph.resetVisited(); //reset visited
 
     cout << "\nDFS (using Queue): ";
     q.push(graph.Head);
+    graph.Head->visited = true; //mark as visited node
 
+    //traversal
     while (!q.empty()) { //while queue is not empty
         Node* current = q.front();
         q.pop();
@@ -142,9 +159,27 @@ void DFS(Graph& graph, string Label) { //depth first search, using stack
         Edge* edge = current->Head; // add neighbors
         while (edge != nullptr) {
             q.push(edge->to);
-            edge = edge->next;
+            edge->to->visited = true; //mark as visited edge
         }
+        edge = edge->next;
     }
+
+    cout << "\nVisited nodes: ";
+    Node* temp = graph.Head;
+    while (temp != nullptr) {
+        if (temp->visited) {
+            cout << temp->label << " ";
+        }
+        temp = temp->next;
+    }
+    cout << endl;
+/*
+    //reset visited status for to be called in future
+    Node* temp = graph.Head;
+    while (temp != nullptr) {
+        temp->visited = false;
+        temp = temp->next;
+    }*/
 }
 
 void BFS(Graph& graph, string Label) { //breadth first search, using stack
@@ -154,33 +189,35 @@ void BFS(Graph& graph, string Label) { //breadth first search, using stack
         return;
     }
 
-    
-    /*
-    //visited nodes 
-    bool(<vector<Node*, bool> visited;)
-    visited[start] = true;
-    */
     stack<Node*> st;
+    graph.resetVisited(); //reset visited
 
     cout << "\nBFS (using Stack): ";
     st.push(graph.Head);
+    graph.Head->visited = true; //visited
 
     while(!st.empty()) { //while stack is not empty
-        Node* current = st.top();
+        Node* current = st.top(); //LIFO
         st.pop(); //remove top element
         cout << current->label << " ";
-        /*
-        //print visited nodes
-        (...)
-        visited[current] = true;
-        */
+        current->visited = true; //mark as visited node
+
         Edge* edge = current->Head; // adding neighbors
         while (edge != nullptr) {
             st.push(edge->to);
-            edge = edge->next;
+            edge->to->visited = true; //mark as visited edge
         }
+            edge = edge->next;
     }
-
+    cout << "\nVisited nodes: ";
+    Node* temp = graph.Head;
+    while (temp != nullptr) {
+        if (temp->visited) {
+            cout << temp->label << " ";
+        }
+        temp = temp->next;
+    }
+    cout << endl;
 }
 
 /*

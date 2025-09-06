@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include "Graph.h"
+
 using namespace std;
 
 int main() {
@@ -17,10 +19,12 @@ int main() {
     };
     vector<string> labels = {"A","B","C","D","E","F","G","H","I"};
 
-    /*Graph graph;
+    Graph graph;
     graph.createGraph(matrix, labels);
-    graph.printGraph();*/
+    graph.printGraph();
 
-    
+    DFS(graph, "A"); //depth first search, using queue
+    BFS(graph, "A"); //breadth first search, using stack
+
     return 0;
 }
