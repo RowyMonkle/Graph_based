@@ -31,8 +31,10 @@ int main() {
     BFS(graph, "A");
     BFS(graph, "H"); 
 
+    cout << endl;
     //Dijkstra (finding shortest path)
-    shortestPath(graph, "A", 0);
-    
+    shortestPath(graph, "A", "I", 0);
+    shortestPath(graph, "E", "G", 0);
+
     return 0;
 }

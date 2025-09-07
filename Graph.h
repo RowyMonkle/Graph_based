@@ -223,6 +223,7 @@ void BFS(Graph& graph, string Label) { //breadth first search, using queue
 
 void shortestPath(Graph& graph, string Label, string Destination, int weight) {
     Node* start = graph.findNode(Label);
+    Node* end = graph.findNode(Destination);
     if (start == nullptr) {
         cout << "Start node not found!" << endl;
         return;
@@ -244,10 +245,14 @@ void shortestPath(Graph& graph, string Label, string Destination, int weight) {
     vector<int> previous(nodes.size(), -1); //store previous node (mapping)
     
     int index = -1;
+    int endIndex = -1;
     for (int i = 0; i < nodes.size(); i++) {
         if (nodes[i] == start) {
             index = i;
             distance[i] = 0; 
+        }
+        if (nodes[i] == end) {
+            endIndex = i;
         }
     }
 
@@ -273,8 +278,7 @@ void shortestPath(Graph& graph, string Label, string Destination, int weight) {
                     break;
                 }
             }
-            /*if the distance to neighbor is shorter than current node
-            update distance + route*/
+            /*if the distance to neighbor is shorter than current node, update distance + route*/
             if (neighIndex != -1 && distance[reach] + edge->weight < distance[neighIndex]) {
                 distance[neighIndex] = distance[reach] + edge->weight;
                 previous[neighIndex] = reach; //previous node for mapping route, from this node to neighbor
@@ -286,32 +290,21 @@ void shortestPath(Graph& graph, string Label, string Destination, int weight) {
     
     //print results
     cout << " ====== Dijkstra's Algorithm ======" << endl;
-    cout << "\nThe shortest path from " << start->label << "):" << endl;
-    for(int i = 0; i , nodes.size(); i++) {
-        cout << "Distance to" << nodes[i]->label << ": ";
-        if (distance[i] == INT_MAX) {
-            cout << "oops! results come out as infinity (unreachable)" << endl;
-            cout << "\nSeems like there is no path from " << start->label << " to " << nodes[i]->label << endl;
-        } else {
-            cout << distance[i] << endl;
-        }
-
-    //print route
-    cout << "Mapping route: ";
-    for(int i = 0; i < nodes.size(); i++) {
-        if (distance[i] == INT_MAX) continue; //skip, don't show
-
-        //if found
-        cout << "The shortest route from " << start->label << " to " << nodes[i]->label << ": ";
-        vector<string> path;
-
+    cout << "\nThe shortest path from " << Label << " -> " << Destination << " was... " << endl;
+    
+    if (distance[endIndex] == INT_MAX) {
+        cout << "oops! results come out as infinity (unreachable)" << endl;
+        return;
+    } else {
         //showing the backtracking route
-        /* 
-        Assume that now we already reaching at the destination (node i) and need to know "what track we've passed?""
+        cout << "\nMapping route from " << Label << " to " << Destination << ": ";
+        vector<string> path;
+            
+        /* Assume that now we already reaching at the destination (node i) and need to know "what track we've passed?""
         set variable 'stop' = current as destination node, then keep going back to previous node (previous[stop])
-        So, if stop = -1, means no previous node
-        */
-        for(int stop = i; stop != -1; stop = previous[stop]) {
+        So, if stop = -1, means no previous node */
+        
+        for(int stop = endIndex; stop != -1; stop = previous[stop]) {
             path.push_back(nodes[stop]->label);
         }
         for(int cost = path.size() - 1; cost >= 0; cost--) {
@@ -320,8 +313,6 @@ void shortestPath(Graph& graph, string Label, string Destination, int weight) {
                 cout << " -> ";
             }
         }
-        cout << " (cost used: " << distance[i] << ")" << endl;
+        cout << " (cost used: " << distance[endIndex] << ")" << endl;
     }
-}
-    cout << endl;
 }
