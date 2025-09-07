@@ -33,6 +33,7 @@ int main() {
 
     cout << endl;
     //Dijkstra (finding shortest path)
+    //shortestPath(Graph& graph, string start, string Destination, int weight) format
     shortestPath(graph, "A", "I", 0);
     shortestPath(graph, "E", "G", 0);
 
