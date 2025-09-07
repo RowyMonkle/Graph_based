@@ -221,7 +221,7 @@ void BFS(Graph& graph, string Label) { //breadth first search, using queue
 
 //Dijkstra (finding shortest path)
 
-void shoetestPath(Graph& graph, string Label, int weight) {
+void shortestPath(Graph& graph, string Label, string Destination, int weight) {
     Node* start = graph.findNode(Label);
     if (start == nullptr) {
         cout << "Start node not found!" << endl;
@@ -322,5 +322,6 @@ void shoetestPath(Graph& graph, string Label, int weight) {
         }
         cout << " (cost used: " << distance[i] << ")" << endl;
     }
-    
+}
+    cout << endl;
 }

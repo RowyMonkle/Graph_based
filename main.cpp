@@ -32,6 +32,7 @@ int main() {
     BFS(graph, "H"); 
 
     //Dijkstra (finding shortest path)
-
+    shortestPath(graph, "A", 0);
+    
     return 0;
 }
