@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 #include "Graph.h"
+#include "Dijkstra.h"
+#include "CheckGraph.h"
+/*#include "GraphLab2.cpp"*/
 
 using namespace std;
 
@@ -31,10 +34,18 @@ int main() {
     BFS(graph, "A");
     BFS(graph, "H"); 
 
+    /*
+    Error, I'll be back to fix it later
     cout << endl;
     //Dijkstra (finding shortest path)
-    shortestPath(graph, "A", "I", 0);
-    shortestPath(graph, "E", "G", 0);
+    shortestPath(graph, "A", "I");
+    shortestPath(graph, "E", "G");*/
+
+    cout << endl;
+    //Check graph type
+    cout << "Check Pseudograph? "  << checkPseudograph(graph) << endl;
+    cout << "Check Weighted Graph? " << checkWeightedGraph(graph) << endl;
+    cout << "Check Disjoint Graph? " << checkDisjoint(graph) << endl;
 
     return 0;
 }
