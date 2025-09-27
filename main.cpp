@@ -42,10 +42,10 @@ int main() {
 
     cout << endl;
     //Check graph type
-    cout << "Check Pseudograph? "  << checkPseudograph(graph) << endl;
-    cout << "Check Weighted Graph? " << checkWeightedGraph(graph) << endl;
+    cout << "Check Pseudograph? "  << (checkPseudograph(graph)? "Yes" : "No") << endl;
+    cout << "Check Weighted Graph? " << (checkWeightedGraph(graph)? "Yes" : "No") << endl;
     // Check if the graph is disjoint
-    cout << "Is the graph disjoint? " << (checkDisjointGraph ? "Yes" : "No") << endl;
+    cout << "Is the graph disjoint? " << (checkDisjointGraph(graph) ? "Yes" : "No") << endl;
 
     return 0;
 }

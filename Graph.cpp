@@ -9,7 +9,7 @@ public:
     int weight; //distance between nodes (finding shortest path)
     Edge* next;
 
-    Edge(Node* f, Node* t, int w) { 
+    Edge::Edge(Node* f, Node* t, int w) { 
         from = f;
         to = t;
         weight = w;
@@ -23,14 +23,14 @@ public:
     Edge* Head;
     Node* next;
     bool visited; //for BFS & DFS
-    Node(string l) {
+    Node::Node(string l) {
         label = l;
         Head = nullptr;
         next = nullptr;
         visited = false; //before traversal (using BFS & DFS)
     }
 
-    ~Node() {
+    Node::~Node() {
         Edge* current = Head;
         while (current != nullptr) {
             Edge* temp = current;
@@ -43,11 +43,11 @@ public:
 class Graph {
 public:
     Node* Head; //head of the graph
-    Graph() {
+    Graph::Graph() {
         Head = nullptr;
     }
 
-    ~Graph() {
+    Graph::~Graph() {
         Node* current = Head;
         while (current != nullptr) {
             Node* temp = current;
@@ -58,7 +58,7 @@ public:
 
     //create graph using adjacency matrix and labels
     //I stored in vector (Main())
-    void createGraph(vector<vector<int>> matrix, vector<string> labels) {
+    void Graph::createGraph(vector<vector<int>> matrix, vector<string> labels) {
         Head = nullptr; //reset head
         
         if (matrix.size() != labels.size()) {
@@ -94,7 +94,7 @@ public:
         }
     }
 
-    Node* findNode(string label) { //For searching algorithms (BFS & DFS)
+    Node* Graph::findNode(string label) { //For searching algorithms (BFS & DFS)
         Node* temp = Head;
         while (temp != nullptr) {
             if (temp->label == label) {
@@ -105,7 +105,7 @@ public:
         return nullptr; // if not found
     }
 
-    void resetVisited() { //reset visited status for future calls
+    void Graph::resetVisited() { //reset visited status for future calls
         Node* temp = Head;
         while (temp != nullptr) {
             temp->visited = false;
@@ -113,7 +113,7 @@ public:
         }
     }
 
-    void printGraph() { 
+    void Graph::printGraph() { 
         Node* rowNode = Head;
         while (rowNode != nullptr) {
             cout << rowNode -> label << " ";
