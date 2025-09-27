@@ -1,14 +1,6 @@
-//Team Project of 670615022 and 6706150XX
-
-#include <iostream>
-#include <string>
-#include <stack>
-#include <vector>
-#include<queue>
+#include "Graph.h"
 
 using namespace std;
-
-class Node; //for Edge() access Node()
 
 class Edge {
 public:

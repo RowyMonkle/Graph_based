@@ -1,20 +1,7 @@
-#ifndef DIJKSTRA_H
-#define DIJKSTRA_H
-
-#include "Graph.h"
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
-#include <queue>
-
-void shortestPath(Graph &graph, std::string Label, std::string Destination);
-
-#endif
-
+#include "Dijkstra.h"
 using namespace std;
-//Dijkstra (finding shortest path)
-void shortestPath(Graph &graph, string Label, string Destination) {
+
+void shortestPath(Graph& graph, string Label, string Destination) {
     Node* start = graph.findNode(Label);
     Node* end = graph.findNode(Destination);
     if (start == nullptr) {

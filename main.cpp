@@ -34,18 +34,18 @@ int main() {
     BFS(graph, "A");
     BFS(graph, "H"); 
 
-    /*
-    Error, I'll be back to fix it later
     cout << endl;
     //Dijkstra (finding shortest path)
+    //For error, it said that a reference type "Graph &graph" connot be initialized with a value of type "Graph" 
     shortestPath(graph, "A", "I");
-    shortestPath(graph, "E", "G");*/
+    shortestPath(graph, "E", "G");
 
     cout << endl;
     //Check graph type
     cout << "Check Pseudograph? "  << checkPseudograph(graph) << endl;
     cout << "Check Weighted Graph? " << checkWeightedGraph(graph) << endl;
-    cout << "Check Disjoint Graph? " << checkDisjoint(graph) << endl;
+    // Check if the graph is disjoint
+    cout << "Is the graph disjoint? " << (checkDisjointGraph ? "Yes" : "No") << endl;
 
     return 0;
 }

@@ -11,7 +11,7 @@ void prim(Graph& graph);
 
 #endif
 
-//Prim and Kruskal algorithms
+/*Prim and Kruskal algorithms
 void prim(Graph& graph) {
     
-}
+}*/

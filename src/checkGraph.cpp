@@ -1,17 +1,5 @@
-#ifndef CHECKGRAPH_H
-#define CHECKGRAPH_H
-
-#include "Graph.h"
-#include <iostream>
-#include <vector>
-#include <queue>
+#include "CheckGraph.h"
 using namespace std;
-
-bool checkPseudograph(Graph& graph);
-bool checkWeightedGraph(Graph& graph);  
-bool checkDisjointGraph(Graph& graph);
-
-#endif
 
 //check is this pseudograph type or not
 //Pseudograph: a graph that having self-loop and multiple edges
